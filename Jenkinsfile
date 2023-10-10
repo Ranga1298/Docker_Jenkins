@@ -45,7 +45,6 @@ pipeline {
                     sh "docker push ${imageName1}:${imageTag}"
 
                     // Log out from Docker Hub
-                    sh "docker logout"
                 }
             }
         }
