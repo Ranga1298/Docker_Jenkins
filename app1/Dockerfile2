@@ -1,0 +1,12 @@
+FROM node:20-alpine
+
+WORKDIR /ranga/app/
+
+COPY package.json .
+COPY nexplace.js .
+
+RUN npm install
+
+EXPOSE 3000
+
+ENTRYPOINT ["node", "nextplace.js"]
