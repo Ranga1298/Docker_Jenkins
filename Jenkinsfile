@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Define your Docker image and tag
         imageName1 = "ranga1298/app1_jenkins"
-        imageName2 =  "ranga1298/appn_jenkins"
+        imageName2 =  "ranga1298/app2_jenkins"
         imageTag = "latest"
         imageTag2 = "latest2"
         image1Dockerfile = "app1/Dockerfile"
