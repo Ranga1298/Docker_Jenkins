@@ -7,12 +7,11 @@ pipeline {
         imageName2 =  "ranga1298/appn_jenkins"
         imageTag = "latest"
         imageTag2 = "latest2"
-        image1Dockerfile = "Dockerfile1"
-        image2Dockerfile = "Dockerfile2"
+        image1Dockerfile = "app1/Dockerfile"
+        image2Dockerfile = "app2/Dockerfile"
         dockerCredentialsId = 'Docker-Credentials'
     }
 
-    stages {
         stage('Build Docker Image1') {
             steps {
                 script {
