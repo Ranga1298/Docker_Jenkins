@@ -6,7 +6,7 @@ pipeline {
         imageName = "ranga1298/docker_jenkins"
         imageTag = "latest"
         dockerFile = "Dockerfile"
-        dockerCredentialsId = 'ranga1298/******'
+        dockerCredentialsId = 'Docker-Credentials'
     }
 
     stages {
