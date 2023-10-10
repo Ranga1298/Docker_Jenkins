@@ -64,11 +64,12 @@ pipeline {
             steps {
                 script {
                     docker.image("${imageName1}:${imageTag}").pull()
-                    sh """
-                        ssh -i ${ec2instancecredentialId} ec2-user@18.217.20.90 'docker run -d -p 3000:3000 ${imageName1}:${imageTag}'
-                    """
-                }
-
+                    sshagent(credentials: ['aws-app1']){
+                        sh """
+                        ssh ec2-user@18.217.20.90 'docker run -d -p 3000:3000 ${imageName1}:${imageTag}'
+                        """
+                    }
+                }  
             }
         }
     }
