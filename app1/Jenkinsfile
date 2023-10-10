@@ -22,7 +22,6 @@ pipeline {
                 }
             }
         }
-    stages {
         stage('Build Docker Image2') {
             steps {
                 script {
@@ -48,7 +47,6 @@ pipeline {
                 }
             }
         }
-    }
         stage('Push Docker Image2') {
             steps {
                 script {
