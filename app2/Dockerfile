@@ -1,6 +1,6 @@
 FROM node:20-alpine
 
-WORKDIR /praneeth/app/
+WORKDIR /ranga/app/
 
 COPY package.json .
 COPY nextplace.js .
