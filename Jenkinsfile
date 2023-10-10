@@ -10,6 +10,7 @@ pipeline {
         image1Dockerfile = "app1/Dockerfile"
         image2Dockerfile = "app2/Dockerfile"
         dockerCredentialsId = 'Docker-Credentials'
+        ec2instancecredentialId = 'aws-app1'
     }
 
     stages {
@@ -56,9 +57,18 @@ pipeline {
                     // Push the Docker image to the registry
                     sh "docker push ${imageName2}:${imageTag2}"
 
-                    // Log out from Docker Hub
-                    sh "docker logout"
                 }
+            }
+        }
+        stage("Pull and Deploy Image 1"){
+            steps {
+                script {
+                    docker.image("${imageName1}:${imageTag}").pull()
+                    sh """
+                        ssh -i ${ec2instancecredentialId} ec2-user@18.217.20.90 'docker run -d -p 3000:3000 ${imageName1}:${imageTag}'
+                    """
+                }
+
             }
         }
     }
