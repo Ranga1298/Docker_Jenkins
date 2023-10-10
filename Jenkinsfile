@@ -63,14 +63,12 @@ pipeline {
         stage("Pull and Deploy Image 1"){
             steps {
                 script {
-                    sshagent(credentials: ["${ec2instancecredentialId}"]){
                         sh """
                         ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.217.20.90 << EOF
                         docker pull \${imageName1}
                         docker run -d --name sum -p 6000:3000 \${imageName1}
                          >> EOF
                         """
-                    }
                 }  
             }
         }
