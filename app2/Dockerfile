@@ -3,7 +3,7 @@ FROM node:20-alpine
 WORKDIR /praneeth/app/
 
 COPY package.json .
-COPY newplace.js .
+COPY nextplace.js .
 
 RUN npm install
 
