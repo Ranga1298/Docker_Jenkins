@@ -84,8 +84,7 @@ pipeline {
                 }  
             }
         }
-    }
-    stage("Clear images and Containers 2"){
+        stage("Clear images and Containers 2"){
             steps {
                 script {
                         sh """
@@ -108,5 +107,6 @@ pipeline {
                      """
                 }
             }
-        }           
+        }
+    }           
 }
