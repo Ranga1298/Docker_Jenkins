@@ -80,7 +80,7 @@ pipeline {
                         docker pull \${imageName1}
                         docker pull \${imageName2}
                         docker run -d --name ranga1 -p 6000:3000 \${imageName1}
-                        docker run -d --name ranga2 -p 7000:3000 \${imageName2}
+                        docker run -d -p 7000:3000 \${imageName2}
                          >> EOF
                         """
                 }  
