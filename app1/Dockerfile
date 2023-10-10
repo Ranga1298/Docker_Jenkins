@@ -4,6 +4,7 @@ WORKDIR /ranga/app/
 
 COPY package.json .
 COPY hello-world.js .
+COPY nextplace.js .
 
 RUN npm install
 
