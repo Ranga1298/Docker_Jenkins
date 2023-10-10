@@ -78,13 +78,35 @@ pipeline {
                         sh """
                         ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.217.20.90 << EOF
                         docker pull \${imageName1}
-                        docker pull \${imageName2}
                         docker run -d --name ranga1 -p 6000:3000 \${imageName1}
-                        docker run -d -p 7000:3000 \${imageName2}
                          >> EOF
                         """
                 }  
             }
         }
     }
+    stage("Clear images and Containers 2"){
+            steps {
+                script {
+                        sh """
+                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@3.19.209.29 << EOF
+                        docker container prune -f
+                        docker image prune -af
+                         >> EOF
+                        """
+                }  
+            }
+        }
+        stage("Pull and Deploy Image 2"){
+            steps {
+                script {
+                        sh """
+                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@3.19.209.29 << EOF
+                        docker pull \${imageName2}
+                        docker run --name rangak -d -p 8000:3000 \${imageName2}
+                         >> EOF
+                     """
+                }
+            }
+        }           
 }
