@@ -7,5 +7,5 @@ app.get('/newplace', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`praneeth app listening on port ${port}`)
+  console.log(`ranga app listening on port ${port}`)
 })
