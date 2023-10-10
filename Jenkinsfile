@@ -11,56 +11,54 @@ pipeline {
         image2Dockerfile = "app2/Dockerfile"
         dockerCredentialsId = 'Docker-Credentials'
     }
-
-        stage('Build Docker Image1') {
-            steps {
-                script {
-                    // Build the Docker image
-                    withCredentials([usernamePassword(credentialsId: dockerCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
-                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                        sh "docker build -t ${imageName1}:${imageTag} -f ${image1Dockerfile} ."
-                    }
+    stage('Build Docker Image1') {
+        steps {
+            script {
+                withCredentials([usernamePassword(credentialsId: dockerCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
+                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                    sh "docker build -t ${imageName1}:${imageTag} -f ${image1Dockerfile} ."
                 }
             }
         }
-        stage('Build Docker Image2') {
-            steps {
-                script {
-                    // Build the Docker image
-                    withCredentials([usernamePassword(credentialsId: dockerCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
-                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                        sh "docker build -t ${imageName2}:${imageTag2} -f ${image2Dockerfile} ."
-                    }
+    }
+    stage('Build Docker Image2') {
+        steps {
+            script {
+                // Build the Docker image
+                withCredentials([usernamePassword(credentialsId: dockerCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
+                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                    sh "docker build -t ${imageName2}:${imageTag2} -f ${image2Dockerfile} ."
                 }
             }
         }
+    }
 
-        stage('Push Docker Image1') {
-            steps {
-                script {
+    stage('Push Docker Image1') {
+        steps {
+            script {
                     
 
-                    // Push the Docker image to the registry
-                    sh "docker push ${imageName1}:${imageTag}"
+                // Push the Docker image to the registry
+                sh "docker push ${imageName1}:${imageTag}"
 
                     // Log out from Docker Hub
-                    sh "docker logout"
-                }
+                sh "docker logout"
             }
         }
-        stage('Push Docker Image2') {
-            steps {
-                script {
+    }
+    stage('Push Docker Image2') {
+        steps {
+            script {
                     
 
-                    // Push the Docker image to the registry
-                    sh "docker push ${imageName2}:${imageTag2}"
+                // Push the Docker image to the registry
+                sh "docker push ${imageName2}:${imageTag2}"
 
-                    // Log out from Docker Hub
-                    sh "docker logout"
-                }
+                // Log out from Docker Hub
+                sh "docker logout"
             }
         }
+    }
  
     post {
         always {
