@@ -67,7 +67,6 @@ pipeline {
                         sh """
                         ssh -o StrictHostKeyChecking=no -t  ec2-user@18.217.20.90
                         docker pull ${imageName1}:${imageTag}
-                        lsof -i :3000
                         docker run -d -p 3000:3000 ${imageName1}:${imageTag}
                         """
                     }
