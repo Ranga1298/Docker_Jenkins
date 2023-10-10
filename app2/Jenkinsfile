@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define your Docker image and tag
-        imageName = "ranga1298/app1_jenkins"
+        imageName = "ranga1298/app2_jenkins"
         imageTag = "latest"
         dockerFile = "Dockerfile"
         dockerCredentialsId = 'Docker-Credentials'
