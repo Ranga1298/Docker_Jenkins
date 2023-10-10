@@ -6,7 +6,9 @@ pipeline {
         imageName1 = "ranga1298/app1_jenkins"
         imageName2 =  "ranga1298/appn_jenkins"
         imageTag = "latest"
-        dockerFile = "Dockerfile"
+        imageTag2 = "latest2"
+        image1Dockerfile = "Dockerfile1"
+        image2Dockerfile = "Dockerfile2"
         dockerCredentialsId = 'Docker-Credentials'
     }
 
@@ -17,7 +19,7 @@ pipeline {
                     // Build the Docker image
                     withCredentials([usernamePassword(credentialsId: dockerCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
                         sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                        sh "docker build -t ${imageName1}:${imageTag} -f ${dockerFile} ."
+                        sh "docker build -t ${imageName1}:${imageTag} -f ${image1Dockerfile} ."
                     }
                 }
             }
@@ -28,7 +30,7 @@ pipeline {
                     // Build the Docker image
                     withCredentials([usernamePassword(credentialsId: dockerCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
                         sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                        sh "docker build -t ${imageName2}:${imageTag} -f ${dockerFile} ."
+                        sh "docker build -t ${imageName2}:${imageTag2} -f ${image2Dockerfile} ."
                     }
                 }
             }
@@ -53,7 +55,7 @@ pipeline {
                     
 
                     // Push the Docker image to the registry
-                    sh "docker push ${imageName2}:${imageTag}"
+                    sh "docker push ${imageName2}:${imageTag2}"
 
                     // Log out from Docker Hub
                     sh "docker logout"
@@ -65,7 +67,7 @@ pipeline {
         always {
             // Clean up by removing the local Docker image
             sh "docker rmi ${imageName1}:${imageTag}"
-            sh "docker rmi ${imageName2}:${imageTag}"
+            sh "docker rmi ${imageName2}:${imageTag2}"
         }
     }
 }
