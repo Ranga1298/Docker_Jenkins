@@ -72,7 +72,7 @@ pipeline {
                 }  
             }
         }
-        stage("Pull and Deploy Image 2"){
+        stage("Pull and Deploy Image 1"){
             steps {
                 script {
                         sh """
