@@ -3,32 +3,45 @@ pipeline {
 
     environment {
         // Define your Docker image and tag
-        imageName = "ranga1298/app1_jenkins"
+        imageName1 = "ranga1298/app1_jenkins"
+        imageName2 =  "ranga1298/app2_jenkins"
         imageTag = "latest"
         dockerFile = "Dockerfile"
         dockerCredentialsId = 'Docker-Credentials'
     }
 
     stages {
-        stage('Build Docker Image') {
+        stage('Build Docker Image1') {
             steps {
                 script {
                     // Build the Docker image
                     withCredentials([usernamePassword(credentialsId: dockerCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
                         sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                        sh "docker build -t ${imageName}:${imageTag} -f ${dockerFile} ."
+                        sh "docker build -t ${imageName1}:${imageTag} -f ${dockerFile} ."
+                    }
+                }
+            }
+        }
+    stages {
+        stage('Build Docker Image2') {
+            steps {
+                script {
+                    // Build the Docker image
+                    withCredentials([usernamePassword(credentialsId: dockerCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        sh "docker build -t ${imageName2}:${imageTag} -f ${dockerFile} ."
                     }
                 }
             }
         }
 
-        stage('Push Docker Image') {
+        stage('Push Docker Image1') {
             steps {
                 script {
                     
 
                     // Push the Docker image to the registry
-                    sh "docker push ${imageName}:${imageTag}"
+                    sh "docker push ${imageName1}:${imageTag}"
 
                     // Log out from Docker Hub
                     sh "docker logout"
@@ -36,11 +49,25 @@ pipeline {
             }
         }
     }
+        stage('Push Docker Image2') {
+            steps {
+                script {
+                    
 
+                    // Push the Docker image to the registry
+                    sh "docker push ${imageName2}:${imageTag}"
+
+                    // Log out from Docker Hub
+                    sh "docker logout"
+                }
+            }
+        }
+    }
     post {
         always {
             // Clean up by removing the local Docker image
-            sh "docker rmi ${imageName}:${imageTag}"
+            sh "docker rmi ${imageName1}:${imageTag}"
+            sh "docker rmi ${imageName2}:${imageTag}"
         }
     }
 }
