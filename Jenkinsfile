@@ -73,12 +73,5 @@ pipeline {
                 }  
             }
         }
-    }
-    post {
-        always {
-            // Clean up by removing the local Docker image
-            sh "docker rmi ${imageName1}:${imageTag}"
-            sh "docker rmi ${imageName2}:${imageTag2}"
-        }
-    }
+    }  
 }
