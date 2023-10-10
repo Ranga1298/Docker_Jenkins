@@ -74,5 +74,17 @@ pipeline {
                 }  
             }
         }
+        stage("Pull and Deploy Image 2"){
+            steps {
+                script {
+                        sh """
+                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.217.20.90 << EOF
+                        docker pull \${imageName2}
+                        docker run -d --name sum -p 7000:3000 \${imageName2}
+                         >> EOF
+                        """
+                }  
+            }
+        }
     }
 }
