@@ -66,7 +66,9 @@ pipeline {
                     docker.image("${imageName1}:${imageTag}").pull()
                     sshagent(credentials: ["${ec2instancecredentialId}"]){
                         sh """
-                        ssh -o StrictHostKeyChecking=no ec2-user@18.217.20.90 'sudo docker run -d -p 3000:3000 ${imageName1}:${imageTag}'
+                        ssh -o StrictHostKeyChecking=no ec2-user@18.217.20.90 <<EOF
+                        docker run -d -p 3000:3000 ${imageName1}:${imageTag}'
+                        EOF
                         """
                     }
                 }  
