@@ -61,7 +61,7 @@ pipeline {
                 }
             }
         }
-    }
+ 
     post {
         always {
             // Clean up by removing the local Docker image
