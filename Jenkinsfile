@@ -66,8 +66,8 @@ pipeline {
                     sshagent(credentials: ["${ec2instancecredentialId}"]){
                         sh """
                         ssh -o StrictHostKeyChecking=no -t  ec2-user@18.217.20.90
-                        'sudo docker pull ${imageName1}:${imageTag}'
-                        'sudo docker run -d -p 3000:3000 ${imageName1}:${imageTag}'
+                        sudo docker pull ${imageName1}:${imageTag}
+                        sudo docker run -d -p 3000:3000 ${imageName1}:${imageTag}
                         """
                     }
                 }  
