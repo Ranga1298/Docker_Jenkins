@@ -17,6 +17,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: dockerCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
                         sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                         sh "docker build -t ${imageName}:${imageTag} -f ${dockerFile} ."
+                    }
                 }
             }
         }
