@@ -79,8 +79,6 @@ pipeline {
                 script {
                         sh """
                         ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.217.20.90 << EOF
-                        docker container prune -af
-                        docker image prune -af
                         docker pull \${imageName2}
                         docker run -d --name ranga2 -p 7000:3000 \${imageName2}
                          >> EOF
