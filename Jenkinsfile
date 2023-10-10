@@ -10,7 +10,7 @@ pipeline {
         image1Dockerfile = "app1/Dockerfile"
         image2Dockerfile = "app2/Dockerfile"
         dockerCredentialsId = 'Docker-Credentials'
-        ec2instancecredentialId = 'aws-app1'
+       SSH_KEY = credentials('aws-app1')
     }
 
     stages {
@@ -65,9 +65,10 @@ pipeline {
                 script {
                     sshagent(credentials: ["${ec2instancecredentialId}"]){
                         sh """
-                        ssh -o StrictHostKeyChecking=no -t  ec2-user@18.217.20.90
-                        docker pull ${imageName1}:${imageTag}
-                        docker run -d -p 3000:3000 ${imageName1}:${imageTag}
+                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.217.20.90 << EOF
+                        docker pull \${imageName1}
+                        docker run -d --name sum -p 6000:3000 \${imageName1}
+                         >> EOF
                         """
                     }
                 }  
