@@ -3,9 +3,9 @@ const app = express()
 const port = 3000
 
 app.get('/newplace', (req, res) => {
-  res.send("This is praneeth's new place!")
+  res.send("Hii There")
 })
 
 app.listen(port, () => {
-  console.log(`praneeth app listening on port ${port}`)
+  console.log(`ranga app listening on port ${port}`)
 })
