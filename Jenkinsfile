@@ -14,7 +14,9 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    sh "docker build -t ${imageName}:${imageTag} -f ${dockerFile} ."
+                    withCredentials([usernamePassword(credentialsId: dockerCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        sh "docker build -t ${imageName}:${imageTag} -f ${dockerFile} ."
                 }
             }
         }
@@ -22,8 +24,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    // Log in to Docker Hub (you can replace this with your registry)
-                    sh "docker login -u ranga1298 -p April@12345"
+                    
 
                     // Push the Docker image to the registry
                     sh "docker push ${imageName}:${imageTag}"
