@@ -1,6 +1,6 @@
 FROM node:20-alpine
 
-WORKDIR /ranga/app2/
+WORKDIR /ranga/app2_jenkins/
 
 COPY package.json .
 COPY app2/nextplace.js .
