@@ -6,7 +6,7 @@ pipeline {
         imageName1 = "ranga1298/app1_jenkins"
         imageName2 =  "ranga1298/app2_jenkins"
         imageTag = "latest"
-        imageTag2 = "latest2"
+        imageTag2 = "latest"
         image1Dockerfile = "app1/Dockerfile"
         image2Dockerfile = "app2/Dockerfile"
         dockerCredentialsId = 'Docker-Credentials'
