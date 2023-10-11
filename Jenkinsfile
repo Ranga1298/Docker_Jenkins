@@ -64,7 +64,7 @@ pipeline {
             steps {
                 script {
                         sh """
-                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.217.20.90 << EOF
+                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.224.37.168 << EOF
                         docker container prune -f
                         docker image prune -af
                          >> EOF
@@ -76,7 +76,7 @@ pipeline {
             steps {
                 script {
                         sh """
-                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.217.20.90 << EOF
+                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.224.37.168 << EOF
                         docker pull \${imageName1}
                         docker run -d --name ranga1 -p 3000:3000 \${imageName1}
                          >> EOF
@@ -88,7 +88,7 @@ pipeline {
             steps {
                 script {
                         sh """
-                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.217.20.90 << EOF
+                        ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.224.37.168 << EOF
                         docker pull \${imageName2}
                         docker run -d --name rangark -p 5000:3000 \${imageName2}
                          >> EOF
