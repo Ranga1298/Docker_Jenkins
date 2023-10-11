@@ -2,8 +2,8 @@ FROM node:20-alpine
 
 WORKDIR /ranga/app/
 
-COPY package.json .
-COPY app1/hello-world.js .
+COPY ../package.json .
+COPY hello-world.js .
 
 RUN npm install
 
