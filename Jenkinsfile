@@ -78,7 +78,7 @@ pipeline {
                         sh """
                         ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@18.217.20.90 << EOF
                         docker pull \${imageName1}
-                        docker run -d --name ranga1 -p 6000:3000 \${imageName1}
+                        docker run -d --name ranga1 -p 3000:3000 \${imageName1}
                          >> EOF
                         """
                 }  
@@ -102,7 +102,7 @@ pipeline {
                         sh """
                         ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ec2-user@3.19.209.29 << EOF
                         docker pull \${imageName2}
-                        docker run --name rangak -d -p 8000:3000 \${imageName2}
+                        docker run --name rangak -d -p 5000:3000 \${imageName2}
                          >> EOF
                      """
                 }
